@@ -35,7 +35,7 @@ class Components {
 					.click((event) => {
 						event.preventDefault();
 						Api().getRequest(`http://localhost:8080/api/${requestedData}/${item.id}`, (data) => {
-							this.renderPageSingleCheck(data, requestedData)
+							this.renderPageSingleTypeCheck(data, requestedData)
 						})
 					});
 				const imgContainer = Html().create('figure').addClass('card__image')
@@ -190,7 +190,7 @@ class Components {
 		currentContainerBlock.replace(content);
 	}
 
-	renderPageSingleCheck(data, typeOfObject) {
+	renderPageSingleTypeCheck(data, typeOfObject) {
 		if (typeOfObject === 'actors') {
 			this.renderPageActor(data);
 		}
