@@ -172,7 +172,7 @@ class Components {
 		}
 		let img = data.imageUrl;
 		const contentTitle = Html().create('h2').addClass('content__title').text(info1);
-		const cardsContainer = Html().create('section').addClass('cards');
+		const cardsContainer1 = Html().create('section').addClass('cards');
 		const cardBlock = Html().create('article').addClass('card');
 		const imgContainer = Html().create('figure').addClass('card__image')
 			.addChild(Html().create('img').addClass('card__image-item').addAttribute('src', img)
@@ -184,11 +184,44 @@ class Components {
 		cardContent.addChild(cardContentItem2);
 		cardBlock.addChild(imgContainer);
 		cardBlock.addChild(cardContent);
-		cardsContainer.addChild(cardBlock);
+		cardsContainer1.addChild(cardBlock);
 		content.addChild(contentTitle);
-		content.addChild(cardsContainer);
+		content.addChild(cardsContainer1);
+		const cardsContainer2 = Html().create('section').addClass('cards');
+		if (data.movies) {
+			data.movies.forEach((movie) => {
+				const cardBlock = Html().create('article').addClass('card');
+				const imgContainer = Html().create('figure').addClass('card__image')
+					.addChild(Html().create('img').addClass('card__image-item').addAttribute('src', movie.imageUrl)
+						.addAttribute('alt', 'atl pic'));
+				const cardContent = Html().create('div').addClass('card__content')
+				const cardContentItem1 = Html().create('h3').addClass('card__content-item').text(movie.title);
+				cardContent.addChild(cardContentItem1);
+				cardBlock.addChild(imgContainer);
+				cardBlock.addChild(cardContent);
+				cardsContainer2.addChild(cardBlock);
+			});
+		};
+		if (data.scenes) {
+			data.scenes.forEach((scene) => {
+
+				const cardBlock = Html().create('article').addClass('card');
+				const cardLink = Html().create('a').addClass('card__link').addAttribute('href', scene.link).addAttribute('target', '_blank');
+				const imgContainer = Html().create('figure').addClass('card__image')
+					.addChild(Html().create('img').addClass('card__image-item').addAttribute('src', picture)
+						.addAttribute('alt', 'atl pic'));
+				const cardContent = Html().create('div').addClass('card__content')
+				const cardContentItem1 = Html().create('h3').addClass('card__content-item').text(scene.name);
+				cardContent.addChild(cardContentItem1);
+				cardLink.addChild(imgContainer);
+				cardLink.addChild(cardContent);
+				cardBlock.addChild(cardLink);
+				cardsContainer2.addChild(cardBlock);
+			});
+		};
+		content.addChild(cardsContainer2);
 		currentContainerBlock.replace(content);
-	}
+	};
 
 	renderPageSingleTypeCheck(data, typeOfObject) {
 		if (typeOfObject === 'actors') {
